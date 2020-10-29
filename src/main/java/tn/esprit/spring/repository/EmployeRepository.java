@@ -19,7 +19,8 @@ public interface EmployeRepository extends CrudRepository<Employe, Integer>  {
 	public Employe getEmployeByEmailAndPassword(@Param("email")String login, @Param("password")String password);
 	
 	
-	
+	@Query("SELECT e FROM Employe e WHERE e.id=:id")
+	public Employe getEmployeByID(@Param("id") int id);
 	
 	@Query("SELECT count(*) FROM Employe")
     public int countemp();

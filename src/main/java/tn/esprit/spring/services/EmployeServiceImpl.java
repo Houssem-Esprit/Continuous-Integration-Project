@@ -103,6 +103,12 @@ public class EmployeServiceImpl implements IEmployeService {
 		Employe employeManagedEntity = employeRepository.findById(employeId).get();
 		return employeManagedEntity.getPrenom();
 	}
+	
+	// Personal Addition @Houssem_Eddine_Rkaies
+	public Employe getEmployByID(int employeId) {
+		return employeRepository.getEmployeByID(employeId);
+	}
+	
 	 
 	public void deleteEmployeById(int employeId)
 	{
@@ -161,5 +167,20 @@ public class EmployeServiceImpl implements IEmployeService {
 	public List<Employe> getAllEmployes() {
 		return (List<Employe>) employeRepository.findAll();
 	}
+
+	
+	// Personal Addition @HoussemEddineRkaiess
+	@Override
+	public Employe getEmployeByID(int employeId) {
+		return employeRepository.getEmployeByID(employeId);
+	}
+
+	@Override
+	public int CountEmploye() {
+		
+		return employeRepository.countemp();
+	}
+
+	
 
 }
