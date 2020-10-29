@@ -5,7 +5,11 @@ import java.util.EnumSet;
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.DispatcherType;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.ocpsoft.rewrite.servlet.RewriteFilter;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,8 +21,10 @@ import tn.esprit.spring.config.LoginFilter;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-public class TimesheetApplication {
-
+public class TimesheetApplication implements ApplicationRunner {
+	
+	private static final Logger logger = LogManager.getLogger(TimesheetApplication.class);
+	
 	public static void main(String[] args) {SpringApplication.run(TimesheetApplication.class, args);}
 
 	@Bean
@@ -41,6 +47,16 @@ public class TimesheetApplication {
 		registration.addUrlPatterns("/pages/*");
 		registration.setFilter(new LoginFilter());
 		return registration;
+	}
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+        logger.debug("Debugging log");
+        logger.info("Info log");
+        logger.warn("Hey, This is a warning!");
+        logger.error("Oops! We have an Error. OK");
+        logger.fatal("Damn! Fatal error. Please fix me.");
+		
 	}
  
 }

@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +32,7 @@ import tn.esprit.spring.entities.Role;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class EmployeServiceImplTest {
-	
+	private static final Logger logger = LogManager.getLogger(EmployeServiceImpl.class);
 	//*** Work done by @Houssem_Eddine_Rkaiess ***//
 	
 	@Autowired
@@ -39,15 +41,19 @@ class EmployeServiceImplTest {
 	@Test
 	void AddEmployeTest() throws Exception {
 		
-		//**** Test all methods that needs the Employe ID to fetch a result ****//
 		
+		//**** Test all methods that needs the Employe ID to fetch a result ****//
+		logger.info("AddEmployeTest open: ");
 		// Add Employe Assert
 		Employe mockEmploye = new Employe(true,"User@Email.com","#UserNameTest","@Password","#UserLastNameTest",Role.INGENIEUR);
 		int expectEmpID = em.addOrUpdateEmploye(mockEmploye);
+		logger.info("employeID: "+expectEmpID );
 		assertNotNull(expectEmpID);  //*****
 		
 		// GetEmployePrenomByIdTest Assert
 		String AsserPrenom = em.getEmployePrenomById(expectEmpID);
+		logger.info("Prenom returned: "+AsserPrenom );
+		logger.info("AddEmployeTest close: ");
 		assertEquals("#UserLastNameTest", AsserPrenom);   //*****
 		
 	}

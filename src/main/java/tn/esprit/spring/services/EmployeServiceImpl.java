@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,10 +32,17 @@ public class EmployeServiceImpl implements IEmployeService {
 	ContratRepository contratRepoistory;
 	@Autowired
 	TimesheetRepository timesheetRepository;
+	
+	private static final Logger logger = LogManager.getLogger(EmployeServiceImpl.class);
+	
 
 	@Override
 	public Employe authenticate(String login, String password) {
-		return employeRepository.getEmployeByEmailAndPassword(login, password);
+		logger.info("|| authenticate service open :");
+		Employe em = employeRepository.getEmployeByEmailAndPassword(login, password);
+		logger.debug(" returned employe : "+em.toString());
+		logger.info("authenticate service close ||");
+		return em;
 	}
 
 	@Override
@@ -165,7 +174,14 @@ public class EmployeServiceImpl implements IEmployeService {
 	}
 
 	public List<Employe> getAllEmployes() {
-		return (List<Employe>) employeRepository.findAll();
+		logger.info("|| getAllEmployes service open :");
+		List<Employe> listemp =(List<Employe>) employeRepository.findAll();
+		for (Employe emp : listemp) {
+			logger.debug("employe ++ : "+emp.toString());
+		}
+		logger.info("getAllEmployes service close : ||");
+		return listemp;
+		
 	}
 
 	
