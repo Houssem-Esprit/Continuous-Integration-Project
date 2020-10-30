@@ -1,6 +1,11 @@
 pipeline {
 	agent any
 	
+	    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "M3"
+    }
+	
 	stages {
 		
 		stage ('git') {
@@ -17,54 +22,39 @@ pipeline {
 			
 			steps {
 			
-				withMaven(maven : 'maven_3_5_0') {
-					
 					bat "mvn clean"
-				}
 			}
 		}
 		
 		stage ('Test the project') {
 		
 			steps {
-			
-				withMaven(maven : 'maven_3_5_0') {
-					
+								
 					bat "mvn test"
-				}
 			}
 		}
 		
 		stage ('Check code quality') {
 		
-			steps {
-			
-				withMaven(maven : 'maven_3_5_0') {
+			steps {			
 					
 					bat "mvn sonar:sonar"
-				}
 			}
 		}
 		
 		stage ('Packaging the project') {
 		
 			steps {
-			
-				withMaven(maven : 'maven_3_5_0') {
-					
+								
 					bat "mvn package"
-				}
 			}
 		}
 		
 		stage ('Deploy the project') {
 		
 			steps {
-			
-				withMaven(maven : 'maven_3_5_0') {
-					
+								
 					bat "mvn deploy:deploy-file -DgroupId=tn.esprit.spring -DartifactId=timesheet -Dversion=2.0 -DgeneratePom=true -Dpackaging=jar  -DrepositoryId=deploymentRepo -Durl=http://localhost:8081/repository/maven-releases/ -Dfile=target/timesheet-2.0.jar"
-				}
 			}
 		}
 		
