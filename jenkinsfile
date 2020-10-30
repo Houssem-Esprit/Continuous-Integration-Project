@@ -3,6 +3,17 @@ pipeline {
 	
 	stages {
 		
+		stage ('git') {
+			
+			steps {
+			
+				withMaven(maven : 'maven_3_5_0') {
+					echo "Getting project from Git";
+					git "https://github.com/Houssem-Esprit/Integration_Continue_Timesheet_Project.git";
+				}
+			}
+		}
+		
 		stage ('Clean the project') {
 			
 			steps {
@@ -47,7 +58,7 @@ pipeline {
 			}
 		}
 		
-		stage ('Packaging the project') {
+		stage ('Deploy the project') {
 		
 			steps {
 			
