@@ -46,7 +46,7 @@ pipeline {
 		
 			steps {
 								
-					bat "mvn package"
+					bat "mvn install"
 			}
 		}
 		
